@@ -46,9 +46,11 @@ memora-app/
 ├── docs/               # Documentation
 ├── src/
 │   ├── app/            # Next.js App Router (pages + API routes)
-│   ├── components/     # Reusable UI components
-│   ├── lib/            # Utilities (Supabase client, etc.)
-│   ├── hooks/          # Custom React hooks
+│   │   ├── tags/       # Tags management (placeholder)
+│   │   └── settings/   # Settings page (placeholder, includes theme toggle)
+│   ├── components/     # Reusable UI components (see src/components/README.md)
+│   ├── lib/            # Supabase client, utilities (see src/lib/README.md)
+│   ├── hooks/          # Custom React hooks (see src/hooks/README.md)
 │   ├── types/          # TypeScript definitions
 │   └── constants/      # Theme tokens, config
 ├── public/             # Static assets

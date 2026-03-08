@@ -72,14 +72,24 @@ memora-app/
 | Variable                         | Description            | Example                    |
 | -------------------------------- | ---------------------- | -------------------------- |
 | `NEXT_PUBLIC_SUPABASE_URL`       | Supabase project URL   | `https://xxxx.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY`  | Supabase anonymous key | `eyJhbGciOi...`            |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY`  | Supabase anonymous key | `eyJhbGciOi...` or `sb_publishable_...` |
+
+### Environment Separation (Staging / Production)
+
+| Environment         | Supabase Project | Where to Set                          |
+| ------------------- | ---------------- | ------------------------------------- |
+| Local development   | `memora-staging` | `.env.local`                           |
+| Vercel Production   | `memora-prod`    | Vercel → Settings → Environment Variables (Production) |
+| Vercel Preview      | `memora-staging` | Vercel → Settings → Environment Variables (Preview)   |
+
+In Vercel, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` twice: once for **Production** (prod credentials) and once for **Preview** (staging credentials).
 
 ## Deployment (Vercel)
 
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com) and sign in with GitHub
 3. Click **"Import Project"** → select your repo
-4. Add environment variables in Vercel dashboard
+4. Add environment variables in Vercel dashboard (see Environment Variables above)
 5. Click **Deploy**
 
 Vercel will automatically deploy on every push to `main` branch.

@@ -24,6 +24,7 @@ Memora is a web-based article/link saving tool. Paste any interesting URL and Me
 
 ## Documentation
 
+- [CLAUDE.md](CLAUDE.md) — AI assistant context (Claude Code, Cursor)
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [Database Schema & Setup](docs/DATABASE.md)
 - [API Reference](docs/API.md)

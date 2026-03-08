@@ -93,3 +93,11 @@ In Vercel, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` tw
 5. Click **Deploy**
 
 Vercel will automatically deploy on every push to `main` branch.
+
+### Verifying Preview Deployment
+
+1. Push a commit to `develop` (or any non-`main` branch)
+2. In Vercel Dashboard → **Deployments**, find the new deployment (should show "Preview")
+3. Click **Visit** to open the Preview URL
+4. Confirm the "Preview" badge appears in the bottom-right corner (only on Preview deploys)
+5. Production (`main`) will not show this badge

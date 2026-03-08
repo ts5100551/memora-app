@@ -58,11 +58,21 @@ memora-app/
 
 ```bash
 npm install
-cp .env.example .env.local   # Add Supabase credentials
+cp .env.example .env.local   # Add Supabase credentials (use staging for local dev)
 npm run dev                   # http://localhost:3000
 npm run build                 # Verify production build
 npm run lint                  # ESLint
 ```
+
+## Environment & Deployment
+
+| Environment | Branch | Supabase Project | Where to Set Env |
+|-------------|--------|-----------------|------------------|
+| Local dev   | —      | `memora-staging` | `.env.local` |
+| Vercel Production | `main` | `memora-prod` | Vercel → Production |
+| Vercel Preview | `develop` and others | `memora-staging` | Vercel → Preview |
+
+See `docs/DEVELOPMENT.md` for setup details. Push to `main` deploys Production; push to `develop` or feature branches deploys Preview.
 
 ## Current Phase
 

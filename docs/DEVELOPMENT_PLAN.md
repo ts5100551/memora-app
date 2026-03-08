@@ -21,11 +21,11 @@
 
 ### Checkpoint ✅
 
-- [ ] `npm run dev` starts without errors
-- [ ] Navigation renders correctly on desktop (sidebar) and mobile (bottom bar)
-- [ ] Theme toggle switches between light and dark mode
-- [ ] CSS variables update across all elements on theme change
-- [ ] `npm run build` completes without errors
+- [x] `npm run dev` starts without errors
+- [x] Navigation renders correctly on desktop (sidebar) and mobile (bottom bar)
+- [x] Theme toggle switches between light and dark mode
+- [x] CSS variables update across all elements on theme change
+- [x] `npm run build` completes without errors
 
 ---
 

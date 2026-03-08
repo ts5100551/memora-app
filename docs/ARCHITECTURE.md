@@ -68,6 +68,14 @@ The app is fully responsive (RWD) and works on desktop, tablet, and mobile brows
 4. **Vercel deployment**: Zero-config for Next.js, free tier sufficient for personal
    use (100GB/month bandwidth).
 
+## Component Layer
+
+Key UI components in `src/components/`:
+
+- **ThemeProvider** — Context for theme state (light/dark/system), persisted to localStorage
+- **ThemeToggle** — Segmented control to switch themes, used in Settings page
+- **Navigation** — Sidebar (desktop) and BottomNav (mobile) with route links
+
 ## Data Flow
 
 ### Saving a Link (Web)

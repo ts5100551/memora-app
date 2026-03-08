@@ -9,6 +9,7 @@ Reusable React components for the Memora app. Styling uses CSS custom properties
 | **ThemeProvider** | Context for theme state (light/dark/system). Wraps the app in `layout.tsx`. Persists preference to localStorage. |
 | **ThemeToggle** | Segmented control (Light / Dark / System) for switching themes. Used in Settings page. |
 | **Navigation** | Exports `Sidebar` (desktop, min-width 768px) and `BottomNav` (mobile). Route links: Home, Tags, Settings. |
+| **EnvBadge** | Shows "Preview" badge when `VERCEL_ENV=preview`. Used to verify Vercel Preview deployments. Hidden on Production and local. |
 
 ## Conventions
 

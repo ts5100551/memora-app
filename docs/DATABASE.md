@@ -7,18 +7,27 @@
 - A [Supabase](https://supabase.com) account (free tier is sufficient)
 - A Supabase project created with region `Northeast Asia (Tokyo)` recommended
 
-## Step 1: Create Supabase Project
+## Step 1: Create Supabase Projects
+
+Create **two** projects for environment separation (staging + production):
+
+| Project         | Use Case                 |
+|-----------------|--------------------------|
+| `memora-staging`| Local dev, Vercel Preview |
+| `memora-prod`   | Vercel Production        |
+
+For each project:
 
 1. Go to [supabase.com](https://supabase.com) and sign in (GitHub login available)
 2. Click **"New Project"**
 3. Fill in:
-   - **Name**: `memora`
+   - **Name**: `memora-staging` or `memora-prod`
    - **Database Password**: Choose a strong password (save it somewhere safe)
    - **Region**: `Northeast Asia (Tokyo)` (or closest to you)
 4. Click **"Create new project"** and wait for provisioning (~2 minutes)
-5. Once ready, go to **Settings → API** and note down:
+5. Once ready, go to **Settings → API** (or **Settings → API Keys**) and note down:
    - `Project URL` (e.g., `https://xxxx.supabase.co`)
-   - `anon public` key
+   - Publishable key or `anon` key
 
 ## Step 2: Create Database Tables
 

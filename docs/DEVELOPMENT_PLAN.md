@@ -26,6 +26,8 @@
 - [x] Theme toggle switches between light and dark mode
 - [x] CSS variables update across all elements on theme change
 - [x] `npm run build` completes without errors
+- [x] Supabase staging + prod projects created; `.env.local` uses staging
+- [x] Vercel deployed; Production (`main`) uses prod, Preview (other branches) uses staging
 
 ---
 

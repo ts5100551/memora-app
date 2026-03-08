@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { Sidebar, BottomNav } from '@/components/Navigation'
+import { EnvBadge } from '@/components/EnvBadge'
 
 export const metadata: Metadata = {
   title: 'Memora — Save & Organize Links',
@@ -24,6 +25,7 @@ export default function RootLayout({
               {children}
             </main>
           </div>
+          <EnvBadge />
         </ThemeProvider>
       </body>
     </html>

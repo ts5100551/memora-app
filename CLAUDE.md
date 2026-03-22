@@ -23,6 +23,7 @@ memora-app/
 ├── docs/                 # All documentation
 ├── src/
 │   ├── app/              # Next.js App Router (pages, layout, globals.css)
+│   │   ├── login/        # Login page (mock auth)
 │   │   ├── tags/         # Tags page (placeholder)
 │   │   └── settings/     # Settings page (placeholder)
 │   ├── components/       # UI components (see src/components/README.md)
@@ -76,7 +77,15 @@ See `docs/DEVELOPMENT.md` for setup details. Push to `main` deploys Production; 
 
 ## Current Phase
 
-Phase 1 (Project Setup & Foundation) is **complete**. Next: Phase 2 (Authentication — login, middleware, logout).
+Phase 1 (Project Setup & Foundation) is **complete**.
+
+Phase 2 (Authentication) is **in progress**:
+- ✅ Login page (`/login`) with Google button — mock only, no real OAuth
+- ✅ Route protection via `AuthProvider` (client-side, localStorage)
+- ✅ Logout button in Sidebar and BottomNav
+- ⏳ Pending: Google OAuth setup (2.1–2.3), real `@supabase/ssr` session (2.5)
+
+See `docs/DEVELOPMENT_PLAN.md` Phase 2 for details.
 
 ## Folder READMEs
 

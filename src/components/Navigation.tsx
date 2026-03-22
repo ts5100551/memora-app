@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useAuth } from '@/components/AuthProvider'
 
 interface NavItem {
     href: string
@@ -29,6 +30,12 @@ const SettingsIcon = () => (
     </svg>
 )
 
+const LogoutIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+    </svg>
+)
+
 const navItems: NavItem[] = [
     { href: '/', label: 'Home', icon: <HomeIcon /> },
     { href: '/tags', label: 'Tags', icon: <TagsIcon /> },
@@ -37,6 +44,7 @@ const navItems: NavItem[] = [
 
 export function Sidebar() {
     const pathname = usePathname()
+    const { logout } = useAuth()
 
     return (
         <aside className="sidebar">
@@ -59,12 +67,21 @@ export function Sidebar() {
                     </Link>
                 ))}
             </nav>
+
+            {/* Logout button pinned to sidebar bottom */}
+            <div className="sidebar-footer">
+                <button className="nav-item nav-item-logout" onClick={logout} type="button">
+                    <LogoutIcon />
+                    Log out
+                </button>
+            </div>
         </aside>
     )
 }
 
 export function BottomNav() {
     const pathname = usePathname()
+    const { logout } = useAuth()
 
     return (
         <nav className="bottom-nav">
@@ -78,6 +95,11 @@ export function BottomNav() {
                     <span>{item.label}</span>
                 </Link>
             ))}
+            {/* Logout button */}
+            <button className="bottom-nav-item bottom-nav-logout" onClick={logout} type="button">
+                <LogoutIcon />
+                <span>Log out</span>
+            </button>
         </nav>
     )
 }

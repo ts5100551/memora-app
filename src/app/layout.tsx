@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { Sidebar, BottomNav } from '@/components/Navigation'
+import { AuthProvider } from '@/components/AuthProvider'
 import { EnvBadge } from '@/components/EnvBadge'
 
 export const metadata: Metadata = {
@@ -18,13 +18,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <div className="app-shell">
-            <Sidebar />
-            <BottomNav />
-            <main className="main-content">
-              {children}
-            </main>
-          </div>
+          {/* AuthProvider handles app shell (nav) and route protection */}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
           <EnvBadge />
         </ThemeProvider>
       </body>

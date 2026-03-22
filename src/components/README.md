@@ -8,7 +8,8 @@ Reusable React components for the Memora app. Styling uses CSS custom properties
 |-----------|---------|
 | **ThemeProvider** | Context for theme state (light/dark/system). Wraps the app in `layout.tsx`. Persists preference to localStorage. |
 | **ThemeToggle** | Segmented control (Light / Dark / System) for switching themes. Used in Settings page. |
-| **Navigation** | Exports `Sidebar` (desktop, min-width 768px) and `BottomNav` (mobile). Route links: Home, Tags, Settings. |
+| **AuthProvider** | Mock auth context (`useAuth` hook). Manages `isLoggedIn` state via localStorage. Renders app shell (Sidebar + BottomNav) when logged in; bare children on `/login`. Redirects unauthenticated users to `/login`. **Replace with real Supabase session in Phase 2.** |
+| **Navigation** | Exports `Sidebar` (desktop, min-width 768px) and `BottomNav` (mobile). Route links: Home, Tags, Settings. Both include a Logout button that calls `useAuth().logout()`. |
 | **EnvBadge** | Shows "Preview" badge when `VERCEL_ENV=preview`. Used to verify Vercel Preview deployments. Hidden on Production and local. |
 
 ## Conventions
@@ -20,7 +21,7 @@ Reusable React components for the Memora app. Styling uses CSS custom properties
 
 ## Structure
 
-- **Layout/Shell**: `ThemeProvider`, `Navigation` — wrap the app or provide shell layout
+- **Layout/Shell**: `ThemeProvider`, `AuthProvider`, `Navigation` — wrap the app or provide shell layout
 - **Interactive**: `ThemeToggle` — user-triggered UI
 - **Future**: Add LinkCard, AddLinkModal, TagBadge, etc. as features are built
 

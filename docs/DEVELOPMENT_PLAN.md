@@ -37,24 +37,28 @@
 
 ### Tasks
 
-| # | Task | Deliverable |
-|---|---|---|
-| 2.1 | Set up Google OAuth in Google Cloud Console | OAuth Client ID + Secret |
-| 2.2 | Enable Google provider in Supabase Dashboard | Auth provider configured |
-| 2.3 | Set up user profile trigger in Supabase (SQL) | Auto-create profile on sign-up |
-| 2.4 | Build login page | Branded login UI with Google button |
-| 2.5 | Implement `@supabase/ssr` auth flow | Server-side session handling |
-| 2.6 | Set up Next.js middleware for route protection | Unauthenticated users redirected to `/login` |
-| 2.7 | Implement logout functionality | Clear session + redirect to login |
+| # | Task | Deliverable | Status |
+|---|---|---|---|
+| 2.1 | Set up Google OAuth in Google Cloud Console | OAuth Client ID + Secret | ⏳ Pending |
+| 2.2 | Enable Google provider in Supabase Dashboard | Auth provider configured | ⏳ Pending |
+| 2.3 | Set up user profile trigger in Supabase (SQL) | Auto-create profile on sign-up | ⏳ Pending |
+| 2.4 | Build login page | Branded login UI with Google button | ✅ Done (mock) |
+| 2.5 | Implement `@supabase/ssr` auth flow | Server-side session handling | ⏳ Pending |
+| 2.6 | Set up Next.js middleware for route protection | Unauthenticated users redirected to `/login` | ✅ Done (mock) |
+| 2.7 | Implement logout functionality | Clear session + redirect to login | ✅ Done (mock) |
+
+> **Note (mock):** Tasks 2.4, 2.6, 2.7 are implemented as a client-side mock using `localStorage`.
+> `AuthProvider` manages auth state and conditionally renders the app shell.
+> Tasks 2.1–2.3 and 2.5 require backend/OAuth setup and are deferred.
 
 ### Checkpoint ✅
 
-- [ ] Clicking "Login with Google" opens Google consent screen
-- [ ] After consent, user is redirected to home page
-- [ ] User profile is auto-created in `public.users` table
+- [ ] Clicking "Login with Google" opens Google consent screen *(requires 2.1–2.3)*
+- [ ] After consent, user is redirected to home page *(requires 2.5)*
+- [ ] User profile is auto-created in `public.users` table *(requires 2.3)*
 - [ ] Refreshing the page maintains login state (session persisted)
-- [ ] Visiting protected routes while logged out redirects to `/login`
-- [ ] Logout clears session and redirects to login
+- [x] Visiting protected routes while logged out redirects to `/login` *(mock)*
+- [x] Logout clears session and redirects to login *(mock)*
 
 ---
 

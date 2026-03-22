@@ -252,6 +252,38 @@ img {
   flex-shrink: 0;
 }
 
+/* Sidebar footer — pinned to bottom, holds logout button */
+.sidebar-footer {
+  padding: 12px 12px 8px;
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+
+/* Logout button variant: same shape as nav-item but with error tint on hover */
+.nav-item-logout {
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.9375rem;
+}
+
+.nav-item-logout:hover {
+  background-color: color-mix(in srgb, var(--color-error) 10%, transparent);
+  color: var(--color-error);
+}
+
+/* Bottom nav logout button — same style, error tint on hover */
+.bottom-nav-logout {
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+
+.bottom-nav-logout:hover {
+  color: var(--color-error);
+}
+
 /* ---------------
    Bottom Navigation — Mobile
    --------------- */

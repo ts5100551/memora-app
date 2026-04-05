@@ -23,11 +23,12 @@ memora-app/
 ├── docs/                 # All documentation
 ├── src/
 │   ├── app/              # Next.js App Router (pages, layout, globals.css)
+│   │   ├── links/[id]/   # Link detail page
 │   │   ├── login/        # Login page (mock auth)
-│   │   ├── tags/         # Tags page (placeholder)
-│   │   └── settings/     # Settings page (placeholder)
+│   │   ├── tags/         # Tags management page
+│   │   └── settings/     # Settings page
 │   ├── components/       # UI components (see src/components/README.md)
-│   ├── lib/              # Supabase client, utilities (see src/lib/README.md)
+│   ├── lib/              # Supabase client, mock store (see src/lib/README.md)
 │   ├── hooks/            # Custom React hooks (see src/hooks/README.md)
 │   ├── types/            # TypeScript interfaces
 │   └── constants/        # Theme tokens, TAG_COLORS, etc.
@@ -79,13 +80,34 @@ See `docs/DEVELOPMENT.md` for setup details. Push to `main` deploys Production; 
 
 Phase 1 (Project Setup & Foundation) is **complete**.
 
-Phase 2 (Authentication) is **in progress**:
+Phase 2 (Authentication) is **partially complete**:
 - ✅ Login page (`/login`) with Google button — mock only, no real OAuth
 - ✅ Route protection via `AuthProvider` (client-side, localStorage)
 - ✅ Logout button in Sidebar and BottomNav
 - ⏳ Pending: Google OAuth setup (2.1–2.3), real `@supabase/ssr` session (2.5)
 
-See `docs/DEVELOPMENT_PLAN.md` Phase 2 for details.
+Phases 3–5 frontend UI is **complete** (with localStorage mock store):
+- ✅ Add Link modal (URL input → mock metadata preview → save)
+- ✅ Home page with link cards, empty state, skeleton loading
+- ✅ Link detail page (`/links/[id]`) with tag management
+- ✅ Tags management page (`/tags`) with color picker
+- ✅ Search bar, tag filter, unread filter (all combinable)
+- ✅ Settings page with usage stats and theme toggle
+- ✅ Card hover animations, modal fade-in, shimmer skeleton
+
+**Pending** (requires Supabase + Google OAuth):
+- ⏳ Real Supabase auth (2.1–2.3, 2.5)
+- ⏳ Database migration SQL (3.1)
+- ⏳ API routes: `/api/metadata`, `/api/links`, `/api/tags` (3.2, 3.6–3.8, 4.2)
+
+See `docs/DEVELOPMENT_PLAN.md` for full task status.
+
+## Data Layer Note
+
+All link and tag data currently lives in **localStorage** via `src/lib/mockStore.ts`.
+The interface matches the planned Supabase schema. When real auth is ready, replace
+the internals of `src/hooks/useLinks.ts` and `src/hooks/useTags.ts` with `fetch` calls
+to the API routes — no component changes required.
 
 ## Folder READMEs
 

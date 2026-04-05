@@ -1,0 +1,271 @@
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  padding: 0;
+  transition: color 0.15s;
+  align-self: flex-start;
+}
+
+.backBtn:hover {
+  color: var(--color-text);
+}
+
+.thumbnail {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.thumbnailPlaceholder {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-border);
+  border-radius: 12px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.urlLink {
+  color: var(--color-primary, #6366f1);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.urlLink:hover {
+  text-decoration: underline;
+}
+
+.dot {
+  color: var(--color-text-secondary);
+}
+
+.date {
+  color: var(--color-text-secondary);
+}
+
+.readBadge {
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: var(--color-primary, #6366f1);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.description {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  margin: 0 0 8px;
+}
+
+.tagsSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.addTagBtn {
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1.5px dashed var(--color-border);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.addTagBtn:hover:not(:disabled) {
+  border-color: var(--color-primary, #6366f1);
+  color: var(--color-primary, #6366f1);
+}
+
+.addTagBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tagPicker {
+  margin-top: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  max-width: 220px;
+}
+
+.tagPickerItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 12px;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-text);
+  text-align: left;
+  transition: background 0.12s;
+}
+
+.tagPickerItem:hover {
+  background: var(--color-border);
+}
+
+.tagPickerDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.btnPrimary,
+.btnSecondary,
+.btnDanger {
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btnPrimary {
+  background: var(--color-primary, #6366f1);
+  color: #fff;
+}
+
+.btnPrimary:hover {
+  opacity: 0.88;
+}
+
+.btnSecondary {
+  background: var(--color-border);
+  color: var(--color-text);
+}
+
+.btnSecondary:hover {
+  opacity: 0.8;
+}
+
+.readActive {
+  background: var(--color-primary, #6366f1);
+  color: #fff;
+  opacity: 0.7;
+}
+
+.btnDanger {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.btnDanger:hover {
+  background: rgba(239, 68, 68, 0.22);
+}
+
+.confirmBox {
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.confirmBox p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.confirmActions {
+  display: flex;
+  gap: 8px;
+}
+
+.notFound {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--color-text-secondary);
+}
+
+.notFoundIcon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.notFound h2 {
+  font-size: 18px;
+  color: var(--color-text);
+  margin: 0 0 8px;
+}
+
+.notFound p {
+  margin: 0 0 20px;
+}

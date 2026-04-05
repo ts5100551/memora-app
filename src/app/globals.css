@@ -45,6 +45,9 @@
   --sidebar-width: 240px;
   --bottom-nav-height: 64px;
 
+  /* Surface raised (used for shimmer animations) */
+  --color-surface-raised: #f1f5f9;
+
   /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -87,6 +90,8 @@
   --color-primary-text: #a5b4fc;
 
   --color-accent: #a78bfa;
+
+  --color-surface-raised: #1e2d44;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -358,6 +363,9 @@ img {
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 @media (min-width: 768px) {

@@ -1,15 +1,16 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react'
 import type { Link } from '@/types'
-import {
-  getLinksWithTags,
-  createLink,
-  updateLink,
-  deleteLink,
-  setLinkTags,
-  type CreateLinkInput,
-} from '@/lib/mockStore'
+
+export interface CreateLinkInput {
+  url: string
+  source?: string
+  title?: string | null
+  description?: string | null
+  thumbnail_url?: string | null
+  tag_ids?: string[]
+}
 
 export interface UseLinksReturn {
   links: Link[]
@@ -21,11 +22,20 @@ export interface UseLinksReturn {
   setFilterTagId: (v: string | null) => void
   filterUnread: boolean
   setFilterUnread: (v: boolean) => void
-  addLink: (input: CreateLinkInput) => Link
-  removeLink: (id: string) => void
-  toggleRead: (id: string) => void
-  updateLinkTags: (id: string, tagIds: string[]) => void
-  refresh: () => void
+  addLink: (input: CreateLinkInput) => Promise<Link>
+  removeLink: (id: string) => Promise<void>
+  toggleRead: (id: string) => Promise<void>
+  updateLinkTags: (id: string, tagIds: string[]) => Promise<void>
+  refresh: () => Promise<void>
+}
+
+async function apiFetch(path: string, options?: RequestInit) {
+  const res = await fetch(path, options)
+  if (!res.ok && res.status !== 204) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body?.error?.message ?? `Request failed: ${res.status}`)
+  }
+  return res
 }
 
 export function useLinks(): UseLinksReturn {
@@ -35,46 +45,65 @@ export function useLinks(): UseLinksReturn {
   const [filterTagId, setFilterTagId] = useState<string | null>(null)
   const [filterUnread, setFilterUnread] = useState(false)
 
-  const refresh = useCallback(() => {
-    setLinks(getLinksWithTags())
+  const refresh = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const res = await apiFetch('/api/links')
+      const { data } = await res.json()
+      setLinks(data ?? [])
+    } finally {
+      setIsLoading(false)
+    }
   }, [])
 
   useEffect(() => {
-    setLinks(getLinksWithTags())
-    setIsLoading(false)
-  }, [])
+    refresh()
+  }, [refresh])
 
   const addLink = useCallback(
-    (input: CreateLinkInput): Link => {
-      const newLink = createLink(input)
-      refresh()
+    async (input: CreateLinkInput): Promise<Link> => {
+      const res = await apiFetch('/api/links', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input),
+      })
+      const newLink: Link = await res.json()
+      await refresh()
       return newLink
     },
     [refresh]
   )
 
   const removeLink = useCallback(
-    (id: string) => {
-      deleteLink(id)
-      refresh()
+    async (id: string) => {
+      await apiFetch(`/api/links/${id}`, { method: 'DELETE' })
+      await refresh()
     },
     [refresh]
   )
 
   const toggleRead = useCallback(
-    (id: string) => {
+    async (id: string) => {
       const link = links.find((l) => l.id === id)
       if (!link) return
-      updateLink(id, { is_read: !link.is_read })
-      refresh()
+      await apiFetch(`/api/links/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_read: !link.is_read }),
+      })
+      await refresh()
     },
     [links, refresh]
   )
 
   const updateLinkTags = useCallback(
-    (id: string, tagIds: string[]) => {
-      setLinkTags(id, tagIds)
-      refresh()
+    async (id: string, tagIds: string[]) => {
+      await apiFetch(`/api/links/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tag_ids: tagIds }),
+      })
+      await refresh()
     },
     [refresh]
   )
@@ -91,9 +120,7 @@ export function useLinks(): UseLinksReturn {
       )
     }
     if (filterTagId) {
-      result = result.filter((l) =>
-        l.tags?.some((t) => t.id === filterTagId)
-      )
+      result = result.filter((l) => l.tags?.some((t) => t.id === filterTagId))
     }
     if (filterUnread) {
       result = result.filter((l) => !l.is_read)

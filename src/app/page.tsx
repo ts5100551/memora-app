@@ -28,12 +28,12 @@ export default function HomePage() {
   const { tags } = useTags()
   const [showModal, setShowModal] = useState(false)
 
-  function handleSave(
+  async function handleSave(
     url: string,
     metadata: { title: string | null; description: string | null; thumbnail_url: string | null; site_name: string | null },
     tagIds: string[]
   ) {
-    addLink({
+    await addLink({
       url,
       title: metadata.title,
       description: metadata.description,

@@ -2,26 +2,17 @@
 
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { useAuth } from '@/components/AuthProvider'
-import { getLinks, getTags } from '@/lib/mockStore'
-import { useEffect, useState } from 'react'
+import { useLinks } from '@/hooks/useLinks'
+import { useTags } from '@/hooks/useTags'
 import styles from './settings.module.css'
 
-/**
- * Settings page — theme preferences, statistics, and account actions.
- */
 export default function SettingsPage() {
   const { logout } = useAuth()
-  const [stats, setStats] = useState({ links: 0, readLinks: 0, tags: 0 })
+  const { links, isLoading: linksLoading } = useLinks()
+  const { tags, isLoading: tagsLoading } = useTags()
 
-  useEffect(() => {
-    const links = getLinks()
-    const tags = getTags()
-    setStats({
-      links: links.length,
-      readLinks: links.filter((l) => l.is_read).length,
-      tags: tags.length,
-    })
-  }, [])
+  const isLoading = linksLoading || tagsLoading
+  const readLinks = links.filter((l) => l.is_read).length
 
   return (
     <div className="page-container">
@@ -32,19 +23,19 @@ export default function SettingsPage() {
         <h2 className={styles.sectionTitle}>Overview</h2>
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
-            <p className={styles.statValue}>{stats.links}</p>
+            <p className={styles.statValue}>{isLoading ? '—' : links.length}</p>
             <p className={styles.statLabel}>Links saved</p>
           </div>
           <div className={styles.statCard}>
-            <p className={styles.statValue}>{stats.readLinks}</p>
+            <p className={styles.statValue}>{isLoading ? '—' : readLinks}</p>
             <p className={styles.statLabel}>Read</p>
           </div>
           <div className={styles.statCard}>
-            <p className={styles.statValue}>{stats.links - stats.readLinks}</p>
+            <p className={styles.statValue}>{isLoading ? '—' : links.length - readLinks}</p>
             <p className={styles.statLabel}>Unread</p>
           </div>
           <div className={styles.statCard}>
-            <p className={styles.statValue}>{stats.tags}</p>
+            <p className={styles.statValue}>{isLoading ? '—' : tags.length}</p>
             <p className={styles.statLabel}>Tags</p>
           </div>
         </div>
@@ -69,9 +60,7 @@ export default function SettingsPage() {
         <div className={styles.row}>
           <div>
             <p className={styles.rowLabel}>Authentication</p>
-            <p className={styles.rowDesc}>
-              Currently using mock authentication. Google OAuth will be enabled in a future update.
-            </p>
+            <p className={styles.rowDesc}>Signed in with Google.</p>
           </div>
         </div>
         <button className={styles.logoutBtn} onClick={logout} type="button">

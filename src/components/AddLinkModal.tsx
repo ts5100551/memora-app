@@ -26,13 +26,17 @@ function getDomain(url: string): string {
   }
 }
 
-/** Mock metadata fetch — returns hostname as site_name, other fields null. */
-function mockFetchMetadata(url: string): MetadataPreview {
-  return {
-    title: null,
-    description: null,
-    thumbnail_url: null,
-    site_name: getDomain(url),
+async function fetchMetadataFromApi(url: string): Promise<MetadataPreview> {
+  try {
+    const res = await fetch('/api/metadata', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
+    })
+    if (!res.ok) throw new Error('fetch failed')
+    return await res.json()
+  } catch {
+    return { title: null, description: null, thumbnail_url: null, site_name: getDomain(url) }
   }
 }
 
@@ -69,7 +73,7 @@ export function AddLinkModal({ tags, onSave, onClose }: AddLinkModalProps) {
     }
   }
 
-  function handleFetchPreview() {
+  async function handleFetchPreview() {
     setUrlError('')
     if (!url.trim()) {
       setUrlError('Please enter a URL.')
@@ -80,17 +84,14 @@ export function AddLinkModal({ tags, onSave, onClose }: AddLinkModalProps) {
       setUrlError('Please enter a valid URL (e.g. https://example.com).')
       return
     }
+    setUrl(normalized)
     setIsFetching(true)
-    // Simulate async fetch delay
-    setTimeout(() => {
-      const meta = mockFetchMetadata(normalized)
-      setPreview(meta)
-      setEditTitle(meta.title ?? '')
-      setEditDescription(meta.description ?? '')
-      setUrl(normalized)
-      setStep('preview')
-      setIsFetching(false)
-    }, 600)
+    const meta = await fetchMetadataFromApi(normalized)
+    setPreview(meta)
+    setEditTitle(meta.title ?? '')
+    setEditDescription(meta.description ?? '')
+    setStep('preview')
+    setIsFetching(false)
   }
 
   function handleSave() {

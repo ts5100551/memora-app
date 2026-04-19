@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
+import { useState, use, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { getLinkById, updateLink, deleteLink, getTags, setLinkTags } from '@/lib/mockStore'
 import type { Link, Tag } from '@/types'
 import { TagBadge } from '@/components/TagBadge'
 import styles from './page.module.css'
@@ -25,6 +24,15 @@ function formatDate(iso: string): string {
   })
 }
 
+async function apiFetch(path: string, options?: RequestInit) {
+  const res = await fetch(path, options)
+  if (!res.ok && res.status !== 204) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body?.error?.message ?? `Request failed: ${res.status}`)
+  }
+  return res
+}
+
 export default function LinkDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const router = useRouter()
@@ -33,37 +41,51 @@ export default function LinkDetailPage({ params }: { params: Promise<{ id: strin
   const [showTagPicker, setShowTagPicker] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
-  useEffect(() => {
-    const found = getLinkById(id)
-    setLink(found)
-    setAllTags(getTags())
+  const refresh = useCallback(async () => {
+    const [linkRes, tagsRes] = await Promise.all([
+      fetch(`/api/links/${id}`),
+      fetch('/api/tags'),
+    ])
+    if (linkRes.status === 404) { setLink(null); return }
+    const linkData = await linkRes.json()
+    const { data: tagsData } = await tagsRes.json()
+    setLink(linkData)
+    setAllTags(tagsData ?? [])
   }, [id])
 
-  function refresh() {
-    setLink(getLinkById(id))
-    setAllTags(getTags())
-  }
-
-  function handleToggleRead() {
-    if (!link) return
-    updateLink(link.id, { is_read: !link.is_read })
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     refresh()
+  }, [refresh])
+
+  async function handleToggleRead() {
+    if (!link) return
+    await apiFetch(`/api/links/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ is_read: !link.is_read }),
+    })
+    await refresh()
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!link) return
-    deleteLink(link.id)
+    await apiFetch(`/api/links/${id}`, { method: 'DELETE' })
     router.push('/')
   }
 
-  function handleToggleTag(tagId: string) {
+  async function handleToggleTag(tagId: string) {
     if (!link) return
     const currentIds = link.tags?.map((t) => t.id) ?? []
     const newIds = currentIds.includes(tagId)
-      ? currentIds.filter((id) => id !== tagId)
+      ? currentIds.filter((tid) => tid !== tagId)
       : [...currentIds, tagId]
-    setLinkTags(link.id, newIds)
-    refresh()
+    await apiFetch(`/api/links/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tag_ids: newIds }),
+    })
+    await refresh()
   }
 
   if (link === undefined) {

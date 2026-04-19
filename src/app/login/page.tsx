@@ -1,6 +1,7 @@
 'use client'
 
-import { useAuth } from '@/components/AuthProvider'
+import { useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 import styles from './login.module.css'
 
 /** Google logo SVG (official brand colours). */
@@ -28,13 +29,31 @@ function GoogleIcon() {
 }
 
 /**
- * Login page with a mock Google sign-in button.
+ * Login page with Google OAuth sign-in.
  *
- * Clicking the button simulates a successful login and redirects to the
- * home page. No real OAuth flow is performed at this stage.
+ * Triggers Supabase OAuth flow; browser is redirected to Google consent screen.
+ * After consent, Supabase redirects back to /auth/callback to exchange the code.
  */
 export default function LoginPage() {
-  const { login } = useAuth()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const supabase = createClient()
+
+  const handleGoogleLogin = async () => {
+    setLoading(true)
+    setError(null)
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+    if (oauthError) {
+      setError(oauthError.message)
+      setLoading(false)
+    }
+    // On success the browser navigates to Google — no need to reset loading
+  }
 
   return (
     <div className={styles.page}>
@@ -51,20 +70,21 @@ export default function LoginPage() {
           Sign in to access your saved links and articles.
         </p>
 
-        {/* Mock Google login button */}
-        <button className={styles.googleButton} onClick={login} type="button">
+        <button
+          className={styles.googleButton}
+          onClick={handleGoogleLogin}
+          type="button"
+          disabled={loading}
+        >
           <GoogleIcon />
-          Continue with Google
+          {loading ? 'Redirecting…' : 'Continue with Google'}
         </button>
+
+        {error && <p className={styles.errorMessage}>{error}</p>}
 
         <p className={styles.disclaimer}>
           By signing in, you agree to our Terms of Service and Privacy Policy.
         </p>
-
-        {/* Visual indicator that this is a mock */}
-        <span className={styles.mockBadge}>
-          ⚡ Mock login — no OAuth yet
-        </span>
       </div>
     </div>
   )

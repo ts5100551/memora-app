@@ -24,11 +24,11 @@ memora-app/
 ├── src/
 │   ├── app/              # Next.js App Router (pages, layout, globals.css)
 │   │   ├── links/[id]/   # Link detail page
-│   │   ├── login/        # Login page (mock auth)
+│   │   ├── login/        # Login page (Google OAuth)
 │   │   ├── tags/         # Tags management page
 │   │   └── settings/     # Settings page
 │   ├── components/       # UI components (see src/components/README.md)
-│   ├── lib/              # Supabase client, mock store (see src/lib/README.md)
+│   ├── lib/              # Supabase client, fetchMetadata, mockStore (see src/lib/README.md)
 │   ├── hooks/            # Custom React hooks (see src/hooks/README.md)
 │   ├── types/            # TypeScript interfaces
 │   └── constants/        # Theme tokens, TAG_COLORS, etc.
@@ -78,36 +78,29 @@ See `docs/DEVELOPMENT.md` for setup details. Push to `main` deploys Production; 
 
 ## Current Phase
 
-Phase 1 (Project Setup & Foundation) is **complete**.
+Phases 1–4 are **complete**. Phase 5 is **mostly complete** (pending production deployment).
 
-Phase 2 (Authentication) is **partially complete**:
-- ✅ Login page (`/login`) with Google button — mock only, no real OAuth
-- ✅ Route protection via `AuthProvider` (client-side, localStorage)
-- ✅ Logout button in Sidebar and BottomNav
-- ⏳ Pending: Google OAuth setup (2.1–2.3), real `@supabase/ssr` session (2.5)
+**What's done:**
+- ✅ Phase 1: Project setup, navigation, theme system, Supabase client
+- ✅ Phase 2: Real Google OAuth via `@supabase/ssr`, server-side middleware, session sync
+- ✅ Phase 3: All link CRUD API routes (`/api/links`, `/api/links/[id]`, `/api/metadata`)
+- ✅ Phase 4: All tags CRUD API routes (`/api/tags`, `/api/tags/[id]`), search & filters
+- ✅ Phase 5 (partial): Loading states, animations, settings page, production build
 
-Phases 3–5 frontend UI is **complete** (with localStorage mock store):
-- ✅ Add Link modal (URL input → mock metadata preview → save)
-- ✅ Home page with link cards, empty state, skeleton loading
-- ✅ Link detail page (`/links/[id]`) with tag management
-- ✅ Tags management page (`/tags`) with color picker
-- ✅ Search bar, tag filter, unread filter (all combinable)
-- ✅ Settings page with usage stats and theme toggle
-- ✅ Card hover animations, modal fade-in, shimmer skeleton
-
-**Pending** (requires Supabase + Google OAuth):
-- ⏳ Real Supabase auth (2.1–2.3, 2.5)
-- ⏳ Database migration SQL (3.1)
-- ⏳ API routes: `/api/metadata`, `/api/links`, `/api/tags` (3.2, 3.6–3.8, 4.2)
+**Pending** (production launch):
+- ⏳ Activate `memora-prod` Supabase project and run schema/trigger SQL
+- ⏳ Final RWD testing on mobile browsers (5.5)
+- ⏳ Deploy to Vercel production (5.6)
+- ⏳ PWA manifest (5.4, optional)
 
 See `docs/DEVELOPMENT_PLAN.md` for full task status.
 
-## Data Layer Note
+## Data Layer
 
-All link and tag data currently lives in **localStorage** via `src/lib/mockStore.ts`.
-The interface matches the planned Supabase schema. When real auth is ready, replace
-the internals of `src/hooks/useLinks.ts` and `src/hooks/useTags.ts` with `fetch` calls
-to the API routes — no component changes required.
+All data is stored in **Supabase** (PostgreSQL) and accessed via Next.js API routes:
+- `src/hooks/useLinks.ts` — fetches from `/api/links` and `/api/links/[id]`
+- `src/hooks/useTags.ts` — fetches from `/api/tags` and `/api/tags/[id]`
+- `src/lib/mockStore.ts` — legacy mock; no longer used by any page or hook
 
 ## Folder READMEs
 

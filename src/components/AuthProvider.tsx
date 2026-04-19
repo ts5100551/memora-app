@@ -1,28 +1,19 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import type { User } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase/client'
 import { Sidebar, BottomNav } from '@/components/Navigation'
-
-/** Mock auth state stored in localStorage under this key. */
-const STORAGE_KEY = 'mock_auth'
 
 interface AuthContextValue {
   isLoggedIn: boolean
-  /** Mock login — sets auth state without real OAuth. */
-  login: () => void
-  /** Clears auth state and redirects to /login. */
+  user: User | null
   logout: () => void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
-/**
- * Returns the mock auth context value.
- *
- * Raises:
- *   Error if called outside of AuthProvider.
- */
 export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext)
   if (!ctx) throw new Error('useAuth must be used within AuthProvider')
@@ -30,69 +21,65 @@ export function useAuth(): AuthContextValue {
 }
 
 /**
- * Provides mock authentication state for the app.
+ * Provides Supabase authentication state for the app.
  *
- * - Persists login state to localStorage.
+ * - Syncs session from Supabase on mount and subscribes to auth changes.
  * - Renders the full app shell (Sidebar + BottomNav) when logged in.
  * - Renders bare children on the /login page.
- * - Redirects unauthenticated users to /login.
- * - Redirects already-authenticated users away from /login.
+ * - Redirects unauthenticated users to /login (client-side fallback;
+ *   middleware.ts handles the server-side redirect).
  *
  * Args:
  *   children: Page content to render.
  */
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
   const [mounted, setMounted] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
+  const supabase = createClient()
 
-  // Hydrate auth state from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    setIsLoggedIn(stored === 'true')
-    setMounted(true)
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+      setMounted(true)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Handle redirects based on auth state
   useEffect(() => {
     if (!mounted) return
-    if (!isLoggedIn && pathname !== '/login') {
-      router.replace('/login')
-    }
-    if (isLoggedIn && pathname === '/login') {
-      router.replace('/')
-    }
-  }, [isLoggedIn, mounted, pathname, router])
+    if (!user && pathname !== '/login') router.replace('/login')
+    if (user && pathname === '/login') router.replace('/')
+  }, [user, mounted, pathname, router])
 
-  const login = useCallback(() => {
-    localStorage.setItem(STORAGE_KEY, 'true')
-    setIsLoggedIn(true)
-  }, [])
+  const logout = async () => {
+    await supabase.auth.signOut()
+    router.replace('/login')
+  }
 
-  const logout = useCallback(() => {
-    localStorage.removeItem(STORAGE_KEY)
-    setIsLoggedIn(false)
-  }, [])
-
-  // Render nothing during SSR / before hydration to avoid flash
   if (!mounted) return null
 
-  // Login page: render without nav shell
+  const isLoggedIn = !!user
+
   if (pathname === '/login') {
     return (
-      <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+      <AuthContext.Provider value={{ isLoggedIn, user, logout }}>
         {children}
       </AuthContext.Provider>
     )
   }
 
-  // Not logged in: render nothing while redirect takes effect
   if (!isLoggedIn) return null
 
-  // Logged in: render full app shell
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, logout }}>
       <div className="app-shell">
         <Sidebar />
         <BottomNav />

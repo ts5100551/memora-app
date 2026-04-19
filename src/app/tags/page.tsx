@@ -16,11 +16,11 @@ export default function TagsPage() {
   const [editColor, setEditColor] = useState('')
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null)
 
-  function handleCreate() {
+  async function handleCreate() {
     setNewError('')
     if (!newName.trim()) { setNewError('Tag name is required.'); return }
     try {
-      addTag(newName.trim(), newColor)
+      await addTag(newName.trim(), newColor)
       setNewName('')
       setNewColor(DEFAULT_TAG_COLOR)
       setShowNewForm(false)
@@ -36,14 +36,14 @@ export default function TagsPage() {
     setDeleteConfirmId(null)
   }
 
-  function handleEditSave(id: string) {
+  async function handleEditSave(id: string) {
     if (!editName.trim()) return
-    editTag(id, { name: editName.trim(), color: editColor })
+    await editTag(id, { name: editName.trim(), color: editColor })
     setEditingId(null)
   }
 
-  function handleDelete(id: string) {
-    removeTag(id)
+  async function handleDelete(id: string) {
+    await removeTag(id)
     setDeleteConfirmId(null)
   }
 

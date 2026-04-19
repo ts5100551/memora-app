@@ -17,7 +17,11 @@ const ThemeContext = createContext<ThemeContextValue>({
 })
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setThemeState] = useState<Theme>('system')
+    const [theme, setThemeState] = useState<Theme>(
+        () => typeof window !== 'undefined'
+            ? ((localStorage.getItem(THEME_KEY) as Theme) || 'system')
+            : 'system'
+    )
     const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light')
 
     // Apply theme to DOM
@@ -30,19 +34,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         setResolvedTheme(isDark ? 'dark' : 'light')
     }
 
-    // Initialize from localStorage
+    // Apply theme to DOM on mount and listen for system preference changes
     useEffect(() => {
-        const saved = (localStorage.getItem(THEME_KEY) as Theme) || 'system'
-        setThemeState(saved)
-        applyTheme(saved)
+        applyTheme(theme)
 
-        // Listen for system preference changes
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
         const handler = () => {
-            if (saved === 'system') applyTheme('system')
+            if (theme === 'system') applyTheme('system')
         }
         mediaQuery.addEventListener('change', handler)
         return () => mediaQuery.removeEventListener('change', handler)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const setTheme = (t: Theme) => {

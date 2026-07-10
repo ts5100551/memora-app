@@ -141,7 +141,7 @@
 | 5.1 | Add loading states and skeleton screens | Smooth loading experience | ✅ Done |
 | 5.2 | Add micro-animations (card hover, transitions) | Polished feel | ✅ Done |
 | 5.3 | Implement settings page | Theme toggle + account info + logout | ✅ Done |
-| 5.4 | Add PWA manifest (optional) | Add to home screen support | ⏳ Pending |
+| 5.4 | Add PWA manifest (optional) | Add to home screen support | ✅ Done |
 | 5.5 | Final RWD testing on mobile browsers | Verified on Safari iOS + Chrome | ⏳ Pending |
 | 5.6 | Deploy to Vercel | Live production URL | ⏳ Pending (activate memora-prod first) |
 | 5.7 | Configure custom domain (optional) | Custom URL if desired | ⏳ Pending |

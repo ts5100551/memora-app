@@ -91,7 +91,6 @@ Phases 1–4 are **complete**. Phase 5 is **mostly complete** (pending productio
 - ⏳ Activate `memora-prod` Supabase project and run schema/trigger SQL
 - ⏳ Final RWD testing on mobile browsers (5.5)
 - ⏳ Deploy to Vercel production (5.6)
-- ⏳ PWA manifest (5.4, optional)
 
 See `docs/DEVELOPMENT_PLAN.md` for full task status.
 

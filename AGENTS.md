@@ -1,6 +1,6 @@
 # Memora — AI Assistant Context
 
-> Context file for Claude Code and Cursor. Read this to understand the project before making changes.
+> Context file for Codex and Cursor. Read this to understand the project before making changes.
 
 ## Project Overview
 
@@ -33,7 +33,7 @@ memora-app/
 │   ├── types/            # TypeScript interfaces
 │   └── constants/        # Theme tokens, TAG_COLORS, etc.
 ├── public/               # Static assets
-└── CLAUDE.md            # This file
+└── AGENTS.md            # This file
 ```
 
 ## Key Documentation
@@ -90,6 +90,7 @@ Phases 1–4 are **complete**. Phase 5 is **mostly complete** (pending productio
 **Pending** (production launch):
 - ⏳ Final RWD testing on mobile browsers (5.5)
 - ⏳ Deploy to Vercel production (5.6)
+- ⏳ PWA manifest (5.4, optional)
 
 See `docs/DEVELOPMENT_PLAN.md` for full task status.
 

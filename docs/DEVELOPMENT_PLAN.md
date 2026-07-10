@@ -143,7 +143,7 @@
 | 5.3 | Implement settings page | Theme toggle + account info + logout | ✅ Done |
 | 5.4 | Add PWA manifest (optional) | Add to home screen support | ✅ Done |
 | 5.5 | Final RWD testing on mobile browsers | Verified on Safari iOS + Chrome | ⏳ Pending |
-| 5.6 | Deploy to Vercel | Live production URL | ⏳ Pending (activate memora-prod first) |
+| 5.6 | Deploy to Vercel | Live production URL | ⏳ Pending |
 | 5.7 | Configure custom domain (optional) | Custom URL if desired | ⏳ Pending |
 
 ### Checkpoint
@@ -154,6 +154,6 @@
 - [ ] App works correctly on iPhone Safari *(manual testing pending)*
 - [ ] App works correctly on desktop Chrome *(manual testing pending)*
 - [x] Production build (`npm run build`) succeeds without warnings
-- [ ] App is live on Vercel production *(memora-prod is INACTIVE; deploy after activating)*
+- [ ] App is live on Vercel production
 - [ ] All API routes work in production *(pending prod deployment)*
 - [ ] Google login works in production *(pending prod deployment)*

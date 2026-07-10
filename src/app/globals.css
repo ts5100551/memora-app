@@ -45,6 +45,9 @@
   --sidebar-width: 240px;
   --bottom-nav-height: 64px;
 
+  /* Surface raised (used for shimmer animations) */
+  --color-surface-raised: #f1f5f9;
+
   /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -87,6 +90,8 @@
   --color-primary-text: #a5b4fc;
 
   --color-accent: #a78bfa;
+
+  --color-surface-raised: #1e2d44;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -301,12 +306,66 @@ img {
 }
 
 /* ---------------
+   Settings Page
+   --------------- */
+.settings-section-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.settings-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+}
+
+.settings-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Logout button — outlined, red tint on hover */
+.settings-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background: none;
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.settings-logout-btn:hover {
+  color: var(--color-error);
+  border-color: var(--color-error);
+  background-color: color-mix(in srgb, var(--color-error) 6%, transparent);
+}
+
+/* ---------------
    Page Content
    --------------- */
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 @media (min-width: 768px) {

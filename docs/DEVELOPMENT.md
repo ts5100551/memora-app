@@ -74,15 +74,19 @@ memora-app/
 | `NEXT_PUBLIC_SUPABASE_URL`       | Supabase project URL   | `https://xxxx.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY`  | Supabase anonymous key | `eyJhbGciOi...` or `sb_publishable_...` |
 
-### Environment Separation (Staging / Production)
+### Environment
+
+A single shared Supabase project (`memora`) is used for local development and
+all Vercel deployments — this is a personal single-user project, so no
+staging/production data split is needed.
 
 | Environment         | Supabase Project | Where to Set                          |
 | ------------------- | ---------------- | ------------------------------------- |
-| Local development   | `memora-staging` | `.env.local`                           |
-| Vercel Production   | `memora-prod`    | Vercel → Settings → Environment Variables (Production) |
-| Vercel Preview      | `memora-staging` | Vercel → Settings → Environment Variables (Preview)   |
+| Local development   | `memora` | `.env.local`                           |
+| Vercel Production   | `memora`    | Vercel → Settings → Environment Variables (Production) |
+| Vercel Preview      | `memora` | Vercel → Settings → Environment Variables (Preview)   |
 
-In Vercel, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` twice: once for **Production** (prod credentials) and once for **Preview** (staging credentials).
+In Vercel, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` for **Production** and **Preview** (and optionally **Development**) using the same `memora` project credentials.
 
 ## Deployment (Vercel)
 
@@ -93,3 +97,11 @@ In Vercel, add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` tw
 5. Click **Deploy**
 
 Vercel will automatically deploy on every push to `main` branch.
+
+### Verifying Preview Deployment
+
+1. Push a commit to `develop` (or any non-`main` branch)
+2. In Vercel Dashboard → **Deployments**, find the new deployment (should show "Preview")
+3. Click **Visit** to open the Preview URL
+4. Confirm the "Preview" badge appears in the bottom-right corner (only on Preview deploys)
+5. Production (`main`) will not show this badge

@@ -57,7 +57,7 @@
 .statValue {
   font-size: 26px;
   font-weight: 700;
-  color: var(--color-primary, #0d9488);
+  color: var(--color-primary, #0f766e);
   margin: 0 0 2px;
   line-height: 1;
 }

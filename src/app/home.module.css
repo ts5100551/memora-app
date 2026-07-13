@@ -26,8 +26,8 @@
   gap: 6px;
   padding: 9px 16px;
   border-radius: 8px;
-  background: var(--color-primary, #0d9488);
-  color: #fff;
+  background: var(--color-primary, #0f766e);
+  color: var(--color-on-primary, #fff);
   font-size: 14px;
   font-weight: 500;
   border: none;
@@ -116,6 +116,6 @@
 }
 
 .clearFiltersBtn:hover {
-  border-color: var(--color-primary, #0d9488);
-  color: var(--color-primary, #0d9488);
+  border-color: var(--color-primary, #0f766e);
+  color: var(--color-primary, #0f766e);
 }

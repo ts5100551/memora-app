@@ -100,7 +100,7 @@
 
 .input:focus,
 .textarea:focus {
-  border-color: var(--color-primary, #0d9488);
+  border-color: var(--color-primary, #0f766e);
   box-shadow: 0 0 0 3px var(--color-primary-light);
 }
 
@@ -176,8 +176,8 @@
 }
 
 .btnPrimary {
-  background: var(--color-primary, #0d9488);
-  color: #fff;
+  background: var(--color-primary, #0f766e);
+  color: var(--color-on-primary, #fff);
 }
 
 .btnPrimary:hover:not(:disabled) {
@@ -201,8 +201,8 @@
 .spinner {
   width: 14px;
   height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
+  border: 2px solid color-mix(in srgb, var(--color-on-primary, #fff) 40%, transparent);
+  border-top-color: var(--color-on-primary, #fff);
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }

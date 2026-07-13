@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 import type { Tag as TagType } from '@/types'
 import type { Link as LinkType } from '@/types'
 import { TagBadge } from './TagBadge'
@@ -11,6 +12,7 @@ interface LinkCardProps {
   onDelete: (id: string) => void
   onToggleRead: (id: string) => void
   onTagClick?: (tagId: string) => void
+  index?: number
 }
 
 function formatDate(iso: string): string {
@@ -29,11 +31,15 @@ function getDomain(url: string): string {
   }
 }
 
-export function LinkCard({ link, onDelete, onToggleRead, onTagClick }: LinkCardProps) {
+export function LinkCard({ link, onDelete, onToggleRead, onTagClick, index = 0 }: LinkCardProps) {
   const tags: TagType[] = link.tags ?? []
+  const staggerDelay = Math.min(index, 12) * 30
 
   return (
-    <article className={`${styles.card} ${link.is_read ? styles.read : ''}`}>
+    <article
+      className={`${styles.card} fade-in-up ${link.is_read ? styles.read : ''}`}
+      style={{ '--stagger-delay': `${staggerDelay}ms` } as CSSProperties}
+    >
       {/* Thumbnail */}
       <Link href={`/links/${link.id}`} className={styles.thumbnailWrap}>
         {link.thumbnail_url ? (
@@ -82,7 +88,7 @@ export function LinkCard({ link, onDelete, onToggleRead, onTagClick }: LinkCardP
           <span className={styles.date}>{formatDate(link.created_at)}</span>
           <div className={styles.actions}>
             <button
-              className={`${styles.actionBtn} ${link.is_read ? styles.readBtn : styles.unreadBtn}`}
+              className={`${styles.actionBtn} press-scale ${link.is_read ? styles.readBtn : styles.unreadBtn}`}
               onClick={() => onToggleRead(link.id)}
               title={link.is_read ? 'Mark as unread' : 'Mark as read'}
             >
@@ -97,7 +103,7 @@ export function LinkCard({ link, onDelete, onToggleRead, onTagClick }: LinkCardP
               )}
             </button>
             <button
-              className={`${styles.actionBtn} ${styles.deleteBtn}`}
+              className={`${styles.actionBtn} press-scale ${styles.deleteBtn}`}
               onClick={() => onDelete(link.id)}
               title="Delete link"
             >

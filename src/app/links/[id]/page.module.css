@@ -61,7 +61,7 @@
 }
 
 .urlLink {
-  color: var(--color-primary, #6366f1);
+  color: var(--color-primary, #0d9488);
   text-decoration: none;
   font-weight: 500;
 }
@@ -81,7 +81,7 @@
 .readBadge {
   padding: 2px 8px;
   border-radius: 99px;
-  background: var(--color-primary, #6366f1);
+  background: var(--color-primary, #0d9488);
   color: #fff;
   font-size: 11px;
   font-weight: 500;
@@ -127,8 +127,8 @@
 }
 
 .addTagBtn:hover:not(:disabled) {
-  border-color: var(--color-primary, #6366f1);
-  color: var(--color-primary, #6366f1);
+  border-color: var(--color-primary, #0d9488);
+  color: var(--color-primary, #0d9488);
 }
 
 .addTagBtn:disabled {
@@ -189,19 +189,19 @@
   font-weight: 500;
   cursor: pointer;
   border: none;
-  transition: opacity 0.15s;
+  transition: background 0.15s, transform var(--transition-fast, 150ms);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
 }
 
 .btnPrimary {
-  background: var(--color-primary, #6366f1);
+  background: var(--color-primary, #0d9488);
   color: #fff;
 }
 
 .btnPrimary:hover {
-  opacity: 0.88;
+  background: var(--color-primary-hover, #0f766e);
 }
 
 .btnSecondary {
@@ -210,22 +210,22 @@
 }
 
 .btnSecondary:hover {
-  opacity: 0.8;
+  background: var(--color-surface-hover);
 }
 
 .readActive {
-  background: var(--color-primary, #6366f1);
+  background: var(--color-primary, #0d9488);
   color: #fff;
   opacity: 0.7;
 }
 
 .btnDanger {
-  background: rgba(239, 68, 68, 0.12);
-  color: #ef4444;
+  background: color-mix(in srgb, var(--color-error, #ef4444) 12%, transparent);
+  color: var(--color-error, #ef4444);
 }
 
 .btnDanger:hover {
-  background: rgba(239, 68, 68, 0.22);
+  background: color-mix(in srgb, var(--color-error, #ef4444) 22%, transparent);
 }
 
 .confirmBox {
@@ -256,8 +256,8 @@
 }
 
 .notFoundIcon {
-  font-size: 40px;
-  margin-bottom: 12px;
+  margin: 0 auto 12px;
+  color: var(--color-text-muted);
 }
 
 .notFound h2 {

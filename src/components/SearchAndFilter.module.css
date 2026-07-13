@@ -39,7 +39,7 @@
 }
 
 .searchInput:focus {
-  border-color: var(--color-primary, #6366f1);
+  border-color: var(--color-primary, #0d9488);
 }
 
 .searchInput::-webkit-search-cancel-button {
@@ -78,8 +78,8 @@
 }
 
 .filterBtn.active {
-  background: var(--color-primary, #6366f1);
-  border-color: var(--color-primary, #6366f1);
+  background: var(--color-primary, #0d9488);
+  border-color: var(--color-primary, #0d9488);
   color: #fff;
 }
 

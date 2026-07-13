@@ -26,18 +26,18 @@
   gap: 6px;
   padding: 9px 16px;
   border-radius: 8px;
-  background: var(--color-primary, #6366f1);
-  color: #fff;
+  background: var(--color-primary, #0f766e);
+  color: var(--color-on-primary, #fff);
   font-size: 14px;
   font-weight: 500;
   border: none;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: background 0.15s, transform var(--transition-fast, 150ms);
   white-space: nowrap;
 }
 
 .addBtn:hover {
-  opacity: 0.88;
+  background: var(--color-primary-hover, #0f766e);
 }
 
 /* Form card */
@@ -80,16 +80,16 @@
 }
 
 .nameInput:focus {
-  border-color: var(--color-primary, #6366f1);
+  border-color: var(--color-primary, #0f766e);
 }
 
 .inputError {
-  border-color: #ef4444;
+  border-color: var(--color-error, #ef4444);
 }
 
 .errorMsg {
   font-size: 12px;
-  color: #ef4444;
+  color: var(--color-error, #ef4444);
   margin: 0;
 }
 
@@ -132,22 +132,22 @@
   font-weight: 500;
   cursor: pointer;
   border: none;
-  transition: opacity 0.15s;
+  transition: background 0.15s, transform var(--transition-fast, 150ms);
 }
 
 .btnPrimary {
-  background: var(--color-primary, #6366f1);
-  color: #fff;
+  background: var(--color-primary, #0f766e);
+  color: var(--color-on-primary, #fff);
 }
 
-.btnPrimary:hover { opacity: 0.88; }
+.btnPrimary:hover { background: var(--color-primary-hover, #0f766e); }
 
 .btnSecondary {
   background: var(--color-border);
   color: var(--color-text);
 }
 
-.btnSecondary:hover { opacity: 0.8; }
+.btnSecondary:hover { background: var(--color-surface-hover); }
 
 /* Tag list */
 .list {
@@ -230,8 +230,8 @@
 .iconBtn:hover { background: var(--color-border); }
 
 .iconBtnDanger:hover {
-  color: #ef4444;
-  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-error, #ef4444);
+  background: color-mix(in srgb, var(--color-error, #ef4444) 10%, transparent);
 }
 
 .deleteConfirm {
@@ -246,8 +246,8 @@
   padding: 3px 8px;
   border-radius: 5px;
   border: none;
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
+  background: color-mix(in srgb, var(--color-error, #ef4444) 15%, transparent);
+  color: var(--color-error, #ef4444);
   font-size: 12px;
   cursor: pointer;
   font-weight: 500;
@@ -270,7 +270,7 @@
   flex-wrap: wrap;
   padding: 10px 14px;
   background: var(--color-surface);
-  border: 1px solid var(--color-primary, #6366f1);
+  border: 1px solid var(--color-primary, #0f766e);
   border-radius: 10px;
 }
 
@@ -285,7 +285,16 @@
   color: var(--color-text-secondary);
 }
 
-.emptyIcon { font-size: 44px; }
+.emptyIcon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
 
 .emptyState h2 {
   font-size: 17px;

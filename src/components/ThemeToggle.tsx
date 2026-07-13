@@ -19,7 +19,7 @@ export function ThemeToggle() {
         <button
           key={t}
           type="button"
-          className={`theme-toggle-btn${theme === t ? ' active' : ''}`}
+          className={`theme-toggle-btn press-scale${theme === t ? ' active' : ''}`}
           onClick={() => setTheme(t)}
           aria-pressed={theme === t}
         >

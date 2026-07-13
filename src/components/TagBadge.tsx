@@ -26,7 +26,7 @@ export function TagBadge({ tag, onClick, onRemove, active }: TagBadgeProps) {
 
   return (
     <span
-      className={`${styles.badge} ${onClick ? styles.clickable : ''} ${active ? styles.active : ''}`}
+      className={`${styles.badge} ${onClick ? `${styles.clickable} press-scale` : ''} ${active ? styles.active : ''}`}
       style={{ backgroundColor: tag.color, color: textColor }}
       onClick={onClick}
       title={tag.name}

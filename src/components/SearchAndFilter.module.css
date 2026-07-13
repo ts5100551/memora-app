@@ -39,7 +39,7 @@
 }
 
 .searchInput:focus {
-  border-color: var(--color-primary, #6366f1);
+  border-color: var(--color-primary, #0f766e);
 }
 
 .searchInput::-webkit-search-cancel-button {
@@ -78,9 +78,9 @@
 }
 
 .filterBtn.active {
-  background: var(--color-primary, #6366f1);
-  border-color: var(--color-primary, #6366f1);
-  color: #fff;
+  background: var(--color-primary, #0f766e);
+  border-color: var(--color-primary, #0f766e);
+  color: var(--color-on-primary, #fff);
 }
 
 .tagRow {

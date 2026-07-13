@@ -128,7 +128,7 @@ export function AddLinkModal({ tags, onSave, onClose }: AddLinkModalProps) {
           <h2 className={styles.title}>
             {step === 'input' ? 'Add Link' : 'Preview & Save'}
           </h2>
-          <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
+          <button className={`${styles.closeBtn} press-scale`} onClick={onClose} aria-label="Close">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" width="18" height="18">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
             </svg>
@@ -153,13 +153,14 @@ export function AddLinkModal({ tags, onSave, onClose }: AddLinkModalProps) {
               {urlError && <p className={styles.errorMsg}>{urlError}</p>}
             </div>
             <div className={styles.footer}>
-              <button className={styles.btnSecondary} onClick={onClose}>Cancel</button>
+              <button className={`${styles.btnSecondary} press-scale`} onClick={onClose}>Cancel</button>
               <button
-                className={styles.btnPrimary}
+                className={`${styles.btnPrimary} press-scale`}
                 onClick={handleFetchPreview}
                 disabled={isFetching}
               >
-                {isFetching ? 'Fetching...' : 'Preview →'}
+                {isFetching && <span className={styles.spinner} aria-hidden="true" />}
+                {isFetching ? 'Fetching…' : 'Preview →'}
               </button>
             </div>
           </div>
@@ -221,10 +222,10 @@ export function AddLinkModal({ tags, onSave, onClose }: AddLinkModalProps) {
             )}
 
             <div className={styles.footer}>
-              <button className={styles.btnSecondary} onClick={() => setStep('input')}>
+              <button className={`${styles.btnSecondary} press-scale`} onClick={() => setStep('input')}>
                 ← Back
               </button>
-              <button className={styles.btnPrimary} onClick={handleSave}>
+              <button className={`${styles.btnPrimary} press-scale`} onClick={handleSave}>
                 Save
               </button>
             </div>

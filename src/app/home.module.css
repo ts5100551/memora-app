@@ -26,19 +26,19 @@
   gap: 6px;
   padding: 9px 16px;
   border-radius: 8px;
-  background: var(--color-primary, #6366f1);
-  color: #fff;
+  background: var(--color-primary, #0f766e);
+  color: var(--color-on-primary, #fff);
   font-size: 14px;
   font-weight: 500;
   border: none;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: background-color 0.15s, transform var(--transition-fast, 150ms);
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .addBtn:hover {
-  opacity: 0.88;
+  background: var(--color-primary-hover, #0f766e);
 }
 
 .grid {
@@ -64,7 +64,14 @@
 }
 
 .emptyIcon {
-  font-size: 48px;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .emptyTitle {
@@ -109,6 +116,6 @@
 }
 
 .clearFiltersBtn:hover {
-  border-color: var(--color-primary, #6366f1);
-  color: var(--color-primary, #6366f1);
+  border-color: var(--color-primary, #0f766e);
+  color: var(--color-primary, #0f766e);
 }

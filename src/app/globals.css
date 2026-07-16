@@ -27,13 +27,14 @@
   --color-border-subtle: #f1f5f9;
 
   /* Brand / Primary */
-  --color-primary: #6366f1;
-  --color-primary-hover: #4f46e5;
-  --color-primary-light: #eef2ff;
-  --color-primary-text: #4338ca;
+  --color-primary: #0f766e;
+  --color-primary-hover: #115e56;
+  --color-primary-light: #f0fdfa;
+  --color-primary-text: #0f766e;
+  --color-on-primary: #ffffff;
 
   /* Accent */
-  --color-accent: #8b5cf6;
+  --color-accent: #ea580c;
 
   /* Status */
   --color-success: #22c55e;
@@ -84,12 +85,13 @@
   --color-border: #1e2d44;
   --color-border-subtle: #162032;
 
-  --color-primary: #818cf8;
-  --color-primary-hover: #6366f1;
-  --color-primary-light: #1e1b4b;
-  --color-primary-text: #a5b4fc;
+  --color-primary: #2dd4bf;
+  --color-primary-hover: #14b8a6;
+  --color-primary-light: #134e4a;
+  --color-primary-text: #5eead4;
+  --color-on-primary: #0b0f1a;
 
-  --color-accent: #a78bfa;
+  --color-accent: #fb923c;
 
   --color-surface-raised: #1e2d44;
 
@@ -447,4 +449,46 @@ img {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+/* Press feedback — tactile scale-down on interactive elements */
+.press-scale {
+  transition: transform var(--transition-fast);
+}
+
+.press-scale:active {
+  transform: scale(0.97);
+}
+
+/* Card / list-item entrance (stagger via inline --stagger-delay) */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 300ms ease-out both;
+  animation-delay: var(--stagger-delay, 0ms);
+}
+
+/* Respect reduced-motion preference across the app */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .press-scale:active {
+    transform: none;
+  }
 }

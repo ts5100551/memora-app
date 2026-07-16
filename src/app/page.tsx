@@ -55,7 +55,7 @@ export default function HomePage() {
             </p>
           )}
         </div>
-        <button className={styles.addBtn} onClick={() => setShowModal(true)}>
+        <button className={`${styles.addBtn} press-scale`} onClick={() => setShowModal(true)}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" width="16" height="16">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
@@ -90,12 +90,16 @@ export default function HomePage() {
       {/* Empty state */}
       {!isLoading && links.length === 0 && (
         <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>🔖</div>
+          <div className={styles.emptyIcon}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="32" height="32">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+            </svg>
+          </div>
           <h2 className={styles.emptyTitle}>No links yet</h2>
           <p className={styles.emptyDesc}>
             Start saving interesting articles, videos, and pages you want to revisit.
           </p>
-          <button className={styles.addBtn} onClick={() => setShowModal(true)}>
+          <button className={`${styles.addBtn} press-scale`} onClick={() => setShowModal(true)}>
             Add your first link
           </button>
         </div>
@@ -106,7 +110,7 @@ export default function HomePage() {
         <div className={styles.noResults}>
           <p>No links match your current filters.</p>
           <button
-            className={styles.clearFiltersBtn}
+            className={`${styles.clearFiltersBtn} press-scale`}
             onClick={() => { setSearch(''); setFilterTagId(null); setFilterUnread(false) }}
           >
             Clear filters
@@ -117,10 +121,11 @@ export default function HomePage() {
       {/* Link cards grid */}
       {!isLoading && filteredLinks.length > 0 && (
         <div className={styles.grid}>
-          {filteredLinks.map((link) => (
+          {filteredLinks.map((link, index) => (
             <LinkCard
               key={link.id}
               link={link}
+              index={index}
               onDelete={removeLink}
               onToggleRead={toggleRead}
               onTagClick={(tagId) => setFilterTagId(filterTagId === tagId ? null : tagId)}

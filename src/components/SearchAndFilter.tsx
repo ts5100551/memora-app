@@ -61,7 +61,7 @@ export function SearchAndFilter({
           />
           {debounced && (
             <button
-              className={styles.clearBtn}
+              className={`${styles.clearBtn} press-scale`}
               onClick={() => { setDebounced(''); onSearchChange('') }}
               aria-label="Clear search"
             >
@@ -71,7 +71,7 @@ export function SearchAndFilter({
         </div>
 
         <button
-          className={`${styles.filterBtn} ${filterUnread ? styles.active : ''}`}
+          className={`${styles.filterBtn} press-scale ${filterUnread ? styles.active : ''}`}
           onClick={() => onFilterUnreadChange(!filterUnread)}
           title={filterUnread ? 'Show all' : 'Show unread only'}
         >
@@ -85,7 +85,7 @@ export function SearchAndFilter({
           {tags.map((tag) => (
             <button
               key={tag.id}
-              className={`${styles.tagChip} ${filterTagId === tag.id ? styles.tagChipActive : ''}`}
+              className={`${styles.tagChip} press-scale ${filterTagId === tag.id ? styles.tagChipActive : ''}`}
               style={filterTagId === tag.id ? { backgroundColor: tag.color, borderColor: tag.color, color: '#fff' } : { borderColor: tag.color, color: tag.color }}
               onClick={() => onFilterTagChange(filterTagId === tag.id ? null : tag.id)}
             >

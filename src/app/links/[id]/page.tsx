@@ -100,10 +100,12 @@ export default function LinkDetailPage({ params }: { params: Promise<{ id: strin
     return (
       <div className="page-container">
         <div className={styles.notFound}>
-          <p className={styles.notFoundIcon}>🔗</p>
+          <svg className={styles.notFoundIcon} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="40" height="40">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+          </svg>
           <h2>Link not found</h2>
           <p>This link may have been deleted.</p>
-          <button className={styles.backBtn} onClick={() => router.push('/')}>
+          <button className={`${styles.backBtn} press-scale`} onClick={() => router.push('/')}>
             ← Back to Home
           </button>
         </div>
@@ -118,7 +120,7 @@ export default function LinkDetailPage({ params }: { params: Promise<{ id: strin
     <div className="page-container">
       <div className={styles.container}>
         {/* Back button */}
-        <button className={styles.backBtn} onClick={() => router.push('/')}>
+        <button className={`${styles.backBtn} press-scale`} onClick={() => router.push('/')}>
           ← Back
         </button>
 
@@ -173,7 +175,7 @@ export default function LinkDetailPage({ params }: { params: Promise<{ id: strin
               />
             ))}
             <button
-              className={styles.addTagBtn}
+              className={`${styles.addTagBtn} press-scale`}
               onClick={() => setShowTagPicker((v) => !v)}
               disabled={unselectedTags.length === 0}
               title={unselectedTags.length === 0 ? 'No more tags to add' : 'Add tag'}
@@ -208,18 +210,18 @@ export default function LinkDetailPage({ params }: { params: Promise<{ id: strin
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.btnPrimary}
+            className={`${styles.btnPrimary} press-scale`}
           >
             Open Original ↗
           </a>
           <button
-            className={`${styles.btnSecondary} ${link.is_read ? styles.readActive : ''}`}
+            className={`${styles.btnSecondary} press-scale ${link.is_read ? styles.readActive : ''}`}
             onClick={handleToggleRead}
           >
             {link.is_read ? 'Mark as Unread' : 'Mark as Read'}
           </button>
           <button
-            className={`${styles.btnDanger}`}
+            className={`${styles.btnDanger} press-scale`}
             onClick={() => setShowDeleteConfirm(true)}
           >
             Delete
@@ -228,11 +230,11 @@ export default function LinkDetailPage({ params }: { params: Promise<{ id: strin
 
         {/* Delete confirmation */}
         {showDeleteConfirm && (
-          <div className={styles.confirmBox}>
+          <div className={`${styles.confirmBox} fade-in-up`}>
             <p>Delete this link permanently?</p>
             <div className={styles.confirmActions}>
-              <button className={styles.btnSecondary} onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
-              <button className={styles.btnDanger} onClick={handleDelete}>Delete</button>
+              <button className={`${styles.btnSecondary} press-scale`} onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+              <button className={`${styles.btnDanger} press-scale`} onClick={handleDelete}>Delete</button>
             </div>
           </div>
         )}

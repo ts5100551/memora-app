@@ -56,7 +56,7 @@ export default function TagsPage() {
             {tags.length} tag{tags.length !== 1 ? 's' : ''}
           </p>
         </div>
-        <button className={styles.addBtn} onClick={() => { setShowNewForm(true); setNewError('') }}>
+        <button className={`${styles.addBtn} press-scale`} onClick={() => { setShowNewForm(true); setNewError('') }}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" width="16" height="16">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
@@ -66,7 +66,7 @@ export default function TagsPage() {
 
       {/* New tag form */}
       {showNewForm && (
-        <div className={styles.formCard}>
+        <div className={`${styles.formCard} fade-in-up`}>
           <p className={styles.formTitle}>New Tag</p>
           <div className={styles.formRow}>
             <input
@@ -82,8 +82,8 @@ export default function TagsPage() {
           </div>
           {newError && <p className={styles.errorMsg}>{newError}</p>}
           <div className={styles.formActions}>
-            <button className={styles.btnSecondary} onClick={() => { setShowNewForm(false); setNewError('') }}>Cancel</button>
-            <button className={styles.btnPrimary} onClick={handleCreate}>Create</button>
+            <button className={`${styles.btnSecondary} press-scale`} onClick={() => { setShowNewForm(false); setNewError('') }}>Cancel</button>
+            <button className={`${styles.btnPrimary} press-scale`} onClick={handleCreate}>Create</button>
           </div>
         </div>
       )}
@@ -91,10 +91,15 @@ export default function TagsPage() {
       {/* Empty state */}
       {tags.length === 0 && !showNewForm && (
         <div className={styles.emptyState}>
-          <p className={styles.emptyIcon}>🏷️</p>
+          <div className={styles.emptyIcon}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width="30" height="30">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L9.568 3Z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+            </svg>
+          </div>
           <h2>No tags yet</h2>
           <p>Create tags to organize your saved links by topic or category.</p>
-          <button className={styles.addBtn} onClick={() => setShowNewForm(true)}>
+          <button className={`${styles.addBtn} press-scale`} onClick={() => setShowNewForm(true)}>
             Create your first tag
           </button>
         </div>
@@ -118,8 +123,8 @@ export default function TagsPage() {
                   />
                   <ColorPicker value={editColor} onChange={setEditColor} />
                   <div className={styles.editActions}>
-                    <button className={styles.btnSecondary} onClick={() => setEditingId(null)}>Cancel</button>
-                    <button className={styles.btnPrimary} onClick={() => handleEditSave(tag.id)}>Save</button>
+                    <button className={`${styles.btnSecondary} press-scale`} onClick={() => setEditingId(null)}>Cancel</button>
+                    <button className={`${styles.btnPrimary} press-scale`} onClick={() => handleEditSave(tag.id)}>Save</button>
                   </div>
                 </div>
               ) : (
@@ -134,7 +139,7 @@ export default function TagsPage() {
                   </div>
                   <div className={styles.tagActions}>
                     <button
-                      className={styles.iconBtn}
+                      className={`${styles.iconBtn} press-scale`}
                       onClick={() => startEdit(tag.id, tag.name, tag.color)}
                       title="Edit tag"
                     >
@@ -145,12 +150,12 @@ export default function TagsPage() {
                     {deleteConfirmId === tag.id ? (
                       <div className={styles.deleteConfirm}>
                         <span>Delete?</span>
-                        <button className={styles.confirmYes} onClick={() => handleDelete(tag.id)}>Yes</button>
-                        <button className={styles.confirmNo} onClick={() => setDeleteConfirmId(null)}>No</button>
+                        <button className={`${styles.confirmYes} press-scale`} onClick={() => handleDelete(tag.id)}>Yes</button>
+                        <button className={`${styles.confirmNo} press-scale`} onClick={() => setDeleteConfirmId(null)}>No</button>
                       </div>
                     ) : (
                       <button
-                        className={`${styles.iconBtn} ${styles.iconBtnDanger}`}
+                        className={`${styles.iconBtn} ${styles.iconBtnDanger} press-scale`}
                         onClick={() => setDeleteConfirmId(tag.id)}
                         title="Delete tag"
                       >
@@ -180,7 +185,7 @@ function ColorPicker({ value, onChange }: { value: string; onChange: (c: string)
         <button
           key={color}
           type="button"
-          className={`${styles.colorSwatch} ${value === color ? styles.colorSwatchActive : ''}`}
+          className={`${styles.colorSwatch} press-scale ${value === color ? styles.colorSwatchActive : ''}`}
           style={{ backgroundColor: color }}
           onClick={() => onChange(color)}
           title={color}

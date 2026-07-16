@@ -45,12 +45,19 @@
   border-radius: 10px;
   padding: 14px 16px;
   text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .statValue {
   font-size: 26px;
   font-weight: 700;
-  color: var(--color-primary, #6366f1);
+  color: var(--color-primary, #0f766e);
   margin: 0 0 2px;
   line-height: 1;
 }
@@ -93,15 +100,15 @@
   padding: 9px 16px;
   border-radius: 8px;
   border: none;
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background: color-mix(in srgb, var(--color-error, #ef4444) 10%, transparent);
+  color: var(--color-error, #ef4444);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform var(--transition-fast, 150ms);
   align-self: flex-start;
 }
 
 .logoutBtn:hover {
-  background: rgba(239, 68, 68, 0.18);
+  background: color-mix(in srgb, var(--color-error, #ef4444) 18%, transparent);
 }

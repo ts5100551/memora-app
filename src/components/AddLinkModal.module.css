@@ -100,11 +100,12 @@
 
 .input:focus,
 .textarea:focus {
-  border-color: var(--color-primary, #6366f1);
+  border-color: var(--color-primary, #0f766e);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
 }
 
 .inputError {
-  border-color: #ef4444;
+  border-color: var(--color-error, #ef4444);
 }
 
 .textarea {
@@ -114,7 +115,7 @@
 
 .errorMsg {
   font-size: 12px;
-  color: #ef4444;
+  color: var(--color-error, #ef4444);
   margin: 0;
 }
 
@@ -162,22 +163,25 @@
 
 .btnPrimary,
 .btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 8px 18px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   border: none;
-  transition: opacity 0.15s, background 0.15s;
+  transition: background 0.15s, transform var(--transition-fast, 150ms);
 }
 
 .btnPrimary {
-  background: var(--color-primary, #6366f1);
-  color: #fff;
+  background: var(--color-primary, #0f766e);
+  color: var(--color-on-primary, #fff);
 }
 
 .btnPrimary:hover:not(:disabled) {
-  opacity: 0.88;
+  background: var(--color-primary-hover, #0f766e);
 }
 
 .btnPrimary:disabled {
@@ -191,5 +195,24 @@
 }
 
 .btnSecondary:hover {
-  opacity: 0.8;
+  background: var(--color-surface-hover);
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid color-mix(in srgb, var(--color-on-primary, #fff) 40%, transparent);
+  border-top-color: var(--color-on-primary, #fff);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 1.2s;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }

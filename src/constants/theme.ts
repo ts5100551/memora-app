@@ -2,7 +2,7 @@ export const THEME_KEY = 'memora-theme'
 
 export const THEMES = ['light', 'dark', 'system'] as const
 
-export const DEFAULT_TAG_COLOR = '#6366F1'
+export const DEFAULT_TAG_COLOR = '#14B8A6'
 
 export const TAG_COLORS = [
   '#6366F1', // Indigo

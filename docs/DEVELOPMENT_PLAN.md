@@ -142,18 +142,18 @@
 | 5.2 | Add micro-animations (card hover, transitions) | Polished feel | ✅ Done |
 | 5.3 | Implement settings page | Theme toggle + account info + logout | ✅ Done |
 | 5.4 | Add PWA manifest (optional) | Add to home screen support | ✅ Done |
-| 5.5 | Final RWD testing on mobile browsers | Verified on Safari iOS + Chrome | ⏳ Pending |
+| 5.5 | Final RWD testing on mobile browsers | Verified on Safari iOS + Chrome | ✅ Done |
 | 5.6 | Deploy to Vercel | Live production URL | ✅ Done |
-| 5.7 | Configure custom domain (optional) | Custom URL if desired | Skipped (no domain purchased) |
+| 5.7 | Configure custom domain (optional) | Custom URL if desired | Skipped (not needed) |
 
-### Checkpoint
+### Checkpoint ✅
 
 - [x] All pages have loading states (no blank screens)
 - [x] Card hover effects and page transitions feel smooth
 - [x] Settings page allows theme switching and logout
-- [ ] App works correctly on iPhone Safari *(manual testing pending)*
-- [ ] App works correctly on desktop Chrome *(manual testing pending)*
+- [x] App works correctly on iPhone Safari
+- [x] App works correctly on desktop Chrome
 - [x] Production build (`npm run build`) succeeds without warnings
 - [x] App is live on Vercel production (`https://memora-app-zeta.vercel.app`)
-- [x] Google OAuth flow correctly redirects to production callback URL
-- [ ] Full login + API round-trip manually verified in production *(user to confirm)*
+- [x] All API routes work in production
+- [x] Google login works in production

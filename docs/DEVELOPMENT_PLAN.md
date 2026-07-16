@@ -154,6 +154,6 @@
 - [x] App works correctly on iPhone Safari
 - [x] App works correctly on desktop Chrome
 - [x] Production build (`npm run build`) succeeds without warnings
-- [x] App is live on Vercel production
+- [x] App is live on Vercel production (`https://memora-app-zeta.vercel.app`)
 - [x] All API routes work in production
 - [x] Google login works in production
